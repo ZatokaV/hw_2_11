@@ -19,9 +19,9 @@ async def add_process_time_header(request: Request, call_next):
     return response
 
 
-@app.get("/", name='Корінь проекту')
+@app.get("/", name='Home')
 def read_root():
-    return {"message": "REST APP v1.0"}
+    return {"message": "Hello"}
 
 
 @app.get("/api/healthchecker")

@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import List
 
 from sqlalchemy.orm import Session
 
@@ -55,3 +56,17 @@ async def birthday_list(db: Session):
         if timedelta(days=-1) < delta < timedelta(days=7):
             contacts_list.append(contact)
     return contacts_list
+
+
+async def searcher(part_to_search: str, db: Session):
+    contact_list = []
+    contacts_all = db.query(Contact).all()
+    for contact in contacts_all:
+        if part_to_search.capitalize() in contact.name.capitalize() and contact not in contact_list:
+            contact_list.append(contact)
+        if part_to_search.capitalize() in contact.surname.capitalize() and contact not in contact_list:
+            contact_list.append(contact)
+        if part_to_search.capitalize() in contact.email.capitalize() and contact not in contact_list:
+            contact_list.append(contact)
+
+    return contact_list
